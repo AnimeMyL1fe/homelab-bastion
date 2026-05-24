@@ -1,0 +1,7 @@
+vps_package:
+  - nginx
+  - certbot 
+  - python3-certbot-nginx
+ansible_user: "admin"
+domain_name:  "lab-host.site"
+domain_name2: "www.lab-host.site"

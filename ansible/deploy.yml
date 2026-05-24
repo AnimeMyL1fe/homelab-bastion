@@ -1,0 +1,6 @@
+---
+- name: ssl + nginx
+  hosts: vps_servers
+  roles:
+    - vps_sg
+    - vps_nginx
