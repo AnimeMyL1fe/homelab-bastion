@@ -1,23 +1,41 @@
+version: '3.8'
+
 services:
   db:
     image: postgres
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_USER: "{{ psql_user }}"    
-      POSTGRES_PASSWORD: "{{ psql_password }}"
-      POSTGRES_DB: "{{ psql_db }}"
+      POSTGRES_USER: "{{ db_app_user }}"    
+      POSTGRES_PASSWORD: '{{ db_app_password }}'
+      POSTGRES_DB: "{{ db_name }}"
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql
     ports:
-      - "5432:5432"
-
+      - "5432:5432" 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - "8443:8080"
 
+  ssh-tunnel:
+    image: alpine:latest
+    container_name: lab_vps_tunnel
+    restart: always
+    volumes:
+      - /home/ubuntu/.ssh/vps_tunnel_key:/root/.ssh/id_rsa:ro
+    entrypoint: >
+      /bin/sh -c "
+      apk add --no-cache openssh-client &&
+      ssh -N 
+      -R 0.0.0.0:8000:adminer:8080 
+      -o StrictHostKeyChecking=no 
+      -o UserKnownHostsFile=/dev/null
+      -o ServerAliveInterval=30 
+      -o ServerAliveCountMax=3 
+      {{ vps_user }}@{{ hostvars['vps_msk']['ansible_host'] }}
+      "
 volumes:
   postgres_data:
