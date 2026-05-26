@@ -1,3 +1,37 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for lab_ssh_tunnel
+- name: create docker compose ssh-tunnel dir
+  file:
+    path: /opt/docker/ssh-tunnel
+    state: directory
+    group: dev
+    mode: "0770"
+
+- name: generate ssh keys
+  openssh_keypair:
+    path: /home/ubuntu/.ssh/vps_tunnel_key
+    type: ed25519
+    owner: ubuntu
+    group: ubuntu
+    mode: '0600'
+  register: tunnel_key
+
+- name: generated public key copy to vps
+  authorized_key:
+    user: "{{ vps_user }}"
+    state: present
+    key: "{{ tunnel_key.public_key }}"
+  delegate_to: vps_msk 
+
+- name: copy docker compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker/ssh-tunnel/docker-compose.yml
+    group: dev
+    mode: "0770"
+
+- name: start docker compose
+  community.docker.docker_compose_v2:
+    project_src: /opt/docker/ssh-tunnel
+    state: present

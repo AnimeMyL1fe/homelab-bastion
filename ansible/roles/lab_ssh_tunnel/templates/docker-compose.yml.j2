@@ -1,0 +1,24 @@
+services:
+  ssh-tunnel:
+    image: alpine:latest
+    container_name: lab_vps_tunnel
+    restart: always
+    volumes:
+      - /home/ubuntu/.ssh/vps_tunnel_key:/root/.ssh/id_rsa:ro
+    networks:
+      - lab_network
+    entrypoint: >
+      /bin/sh -c "
+      apk add --no-cache openssh-client &&
+      ssh -N 
+      -R 0.0.0.0:8000:adminer:8080 
+      -o StrictHostKeyChecking=no 
+      -o UserKnownHostsFile=/dev/null
+      -o ServerAliveInterval=30 
+      -o ServerAliveCountMax=3 
+      {{ vps_user }}@{{ hostvars['vps_msk']['ansible_host'] }}
+      "
+
+networks:
+  lab_network:
+    external: true

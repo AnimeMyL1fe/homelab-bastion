@@ -1,12 +1,18 @@
 ---
-- name: ssl + nginx
-  hosts: vps_servers
+- name: deploy HomeLab infrastructure
+  hosts: all_homelab_servers
   roles:
-    - vps_sg
-    - vps_nginx
+    - lab_netbird   
+    - lab_postgresql  
+    - lab_ssh_tunnel  
 
-- name: docker_psql
-  hosts: lab_db
+- name: deploy nginx to vps
+  hosts: vps_msk
   roles:
-    - lab_docker_install
-    - lab_postgresql
+    - vps_nginx       
+
+- name: deploy vps applications & gateways
+  hosts: vps_msk
+  roles:
+    - vps_nginx_html  
+    - vps_ssh_tunnel  
