@@ -22,7 +22,7 @@
     user: "{{ vps_user }}"
     state: present
     key: "{{ tunnel_key.public_key }}"
-  delegate_to: vps_msk # Магия Ansible: таска выполнится на бэкенде, но результат отправит на VPS
+  delegate_to: vps_msk 
 
 - name: copy docker compose file
   template:

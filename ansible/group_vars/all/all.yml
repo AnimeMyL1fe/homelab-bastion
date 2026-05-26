@@ -9,3 +9,4 @@ domain_name2: "www.lab-host.site"
 db_app_user: metrology
 db_app_password: '{{ vault_db_app_password }}'
 db_name: metrology_db
+netbird_key: "{{ vault_netbird_key }}"

@@ -1,0 +1,5 @@
+---
+- name: deploy network for backend
+  hosts: lab_db
+  roles:
+    - lab_netbird
