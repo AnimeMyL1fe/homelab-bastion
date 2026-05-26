@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for vps_nginx_html
+- name: test nginx and reload
+  command: nginx -t
+  notify:
+    - 'reload nginx'
+
+- name: reload nginx
+  service:
+    name: 'nginx'
+    state: 'reloaded'

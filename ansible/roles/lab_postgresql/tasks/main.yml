@@ -1,0 +1,21 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for lab_postgresql
+- name: create docker compose postgresql dir
+  file:
+    path: /opt/docker/postgresql
+    state: directory
+    group: dev
+    mode: "0770"
+
+- name: copy docker compose file
+  template:
+    src: compose.yml.j2
+    dest: /opt/docker/postgresql/compose.yml
+    group: dev
+    mode: "0770"
+
+- name: start docker compose
+  community.docker.docker_compose_v2:
+    project_src: /opt/docker/postgresql
+    state: present

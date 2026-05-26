@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for vps_ssh_tunnel
+- name: restart ssh
+  service:
+    name: ssh
+    state: restarted

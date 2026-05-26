@@ -1,0 +1,12 @@
+vps_package:
+  - nginx
+  - certbot 
+  - python3-certbot-nginx
+vps_user: "admin"
+proxmox_user: "ubuntu"
+domain_name:  "lab-host.site"
+domain_name2: "www.lab-host.site"
+db_app_user: metrology
+db_app_password: '{{ vault_db_app_password }}'
+db_name: metrology_db
+netbird_key: "{{ vault_netbird_key }}"

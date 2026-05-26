@@ -1,0 +1,6 @@
+---
+- name: docker_psql
+  hosts: lab_db
+  roles:
+    - lab_docker_install
+    - lab_postgresql
