@@ -21,6 +21,10 @@ variable "profile_list" {
         cpu = 2
         ram = 2048
       }
+      "code" = {
+        cpu = 2
+        ram = 4096
+      }
     }
 }
 

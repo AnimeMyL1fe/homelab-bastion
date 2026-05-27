@@ -1,0 +1,20 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for lab_vscode
+- name: create dir
+  file:
+    path: /opt/docker/vscode
+    state: directory
+    group: dev
+
+- name: copy vscode compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker/vscode/docker-compose.yml
+    group: dev
+    mode: "0770"
+
+- name: start docker compose
+  community.docker.docker_compose_v2:
+    project_src: /opt/docker/vscode
+    state: present

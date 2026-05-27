@@ -1,0 +1,14 @@
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1005
+      - PGID=1005
+      - TZ=Asia/Yekaterinburg 
+    volumes:
+      - /home/{{ proxmox_user }}/vscode/config:/config
+      - /home/{{ proxmox_user }}/projects:/config/workspace
+    ports:
+      - 8443:8443
+    restart: unless-stopped

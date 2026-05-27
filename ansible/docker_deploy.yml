@@ -1,6 +1,13 @@
 ---
-- name: docker_psql
-  hosts: lab_db
+#- hosts: docker_psql
+#  hosts: lab_db
+#  roles:
+#    - lab_docker_install
+#    - lab_postgresql
+
+- name: vscode
+  hosts: lab_vscode_srv
   roles:
     - lab_docker_install
-    - lab_postgresql
+    - lab_netbird
+    - lab_vscode
