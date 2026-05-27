@@ -5,7 +5,8 @@ services:
     environment:
       - PUID=1005
       - PGID=1005
-      - TZ=Asia/Yekaterinburg 
+      - TZ=Asia/Yekaterinburg
+      - DOCKER_MODS=linuxserver/mods:code-server-python3|linuxserver/mods:code-server-ansible
     volumes:
       - /home/{{ proxmox_user }}/vscode/config:/config
       - /home/{{ proxmox_user }}/projects:/config/workspace
