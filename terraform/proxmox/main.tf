@@ -34,7 +34,7 @@ initialization {
 
     user_account {
       keys     = [trimspace(file("~/.ssh/ru_vps_key.pub"))]
-      username = "ubuntu" # Юзер по дефолту для Ubuntu образов
+      username = "ubuntu"
     }
   
   }

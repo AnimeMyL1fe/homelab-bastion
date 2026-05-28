@@ -2,6 +2,7 @@ services:
   netbird-client:
       container_name: netbird-client
       hostname: "{{ ansible_facts['hostname'] }}"
+      restart: always
       cap_add:
           - NET_ADMIN
           - SYS_ADMIN
